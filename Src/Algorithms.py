@@ -4,7 +4,7 @@ from Util import *
 class OneshotSmart:
     """
     Oneshot is an on the fly algorithm that verifies for a Regular Transition Systems if it satisfies a property.
-    (for more information on dodo please refer to my thesis)
+    (for more information please refer to my thesis)
 
     The class contains different implementations of Oneshot
     """
