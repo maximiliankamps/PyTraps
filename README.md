@@ -12,13 +12,13 @@ This program benchmarks different **Regular Model Checking** algorithms for the 
 
 ## Research Topic Abstract
 
-Regular model checking is a technique for automatically verifying infinite-state systems using regular transition systems. Put simply, regular model checking tests whether an undesired state is reachable from a set of initial states through system transitions. The method used in this program reasons over regular transition systems using inductive statements. Inductive statements are assertions that, if satisfied by a configuration \( c \) (a state of the system), are also satisfied by all reachable configurations \( c' \) from \( c \) via the regular transition system. These statements allow for an approximation of reachability between configurations. A detailed description of the method can be found in the folder **thesis**.
+Regular model checking is a technique for automatically verifying infinite-state systems using regular transition systems. Put simply, regular model checking tests whether an undesired state is reachable from a set of initial states through system transitions. The method used in this program reasons over regular transition systems using inductive statements. Inductive statements are assertions that, if satisfied by a configuration c (a state of the system), are also satisfied by all reachable configurations c' from c via the regular transition system. These statements allow for an approximation of reachability between configurations. A detailed description of the method can be found in the folder **thesis**.
 
 ## How to Run the Benchmarks 
 The program has been tested on macOS.
 
 1. Optional step: Add your own benchmarks
-   - Encode a Regular Transition System in the format specified in the next section, "**File format for benchmark**."
+   - Encode a regular transition system in the format specified in the next section, "**File format for benchmark**."
    - Add the file to the folder **Src/benchmark**.
    - Add the file to the list **benchmark** in **Src/Main.py**.
 
@@ -40,10 +40,14 @@ The program has been tested on macOS.
 
 ## File Format for Benchmarks 
 The program requires that **Regular Transition Systems** are encoded in the following format. The encoding is exemplified for the token passing protocol (https://simple.wikipedia.org/wiki/Token_passing). The token passing protocol is a method used in network communication to manage access to a shared resource, such as a communication channel. In this protocol, a unique token circulates among nodes in the network, and only the node holding the token can transmit data; once it finishes, the token is passed to the next node, ensuring orderly access and preventing data collisions (https://simple.wikipedia.org/wiki/Token_passing). The behavior of this system can be modeled as a regular transition system. A property of interest that we want to verify for the protocol could be whether the token can ever get lost via transitions of the system (from an initial configuration where one agent has the token). The system was encoded in a .json file containing the following objects: 
-- The set of initial configurations encoded in the NFA **initial**. 
-- The transition behavior of the system encoded in **transducer**. 
-- The NFA **no token** encoding the property "Can the token get lost?" in the list **properties**. 
-Note that more than one property can be specified in **properties**. 
+- ```description```: A short description of the protocol
+- ```deadlockThreshold```: Can be ignored 
+- List ```alphabet```: The alphabet of the automata
+- ```initial```: An NFA recognizing the set of initial configurations. 
+- ```transducer```: The transducer recognizing transitions between configurations. 
+- List ```properties```: The NFA (named **no token**) recognizing the words of the property "Can the token get lost?".
+
+Note that more than one property can be specified in ```properties```. 
 
 ```javascript
 {
